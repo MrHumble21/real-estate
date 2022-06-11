@@ -9,6 +9,7 @@ import {
   linkName,
   imageUrl,
 } from "@chakra-ui/react";
+import Property from '../components/Property'
 
 import { baseUrl, fetchApi } from "../utils/fetchApi";
 
@@ -64,10 +65,9 @@ export default function Home({ propertiesForRent, propertiesForSale }) {
       />
       {
         <Flex flexWrap="wrap">
-          {
-            // fetch property and map over here
-            propertiesForRent.map((property)=>(<Property property={property} key={property.id}/>))
-          }
+          {propertiesForRent.map((property) => (
+            <Property property={property} key={property.id} />
+          ))}
         </Flex>
       }
       <Banner
@@ -80,13 +80,22 @@ export default function Home({ propertiesForRent, propertiesForSale }) {
         linkName={"/search?purpose=for-sale"}
         imageUrl="https://bayut-production.s3.eu-central-1.amazonaws.com/image/110993385/6a070e8e1bae4f7d8c1429bc303d2008"
       />
+      <Flex flexWrap="wrap">
+        {propertiesForSale.map((property) => (
+          <Property property={property} key={property.id} />
+        ))}
+      </Flex>
     </Box>
   );
 }
 
 export async function getStaticProps() {
-  const propertyForSale = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=5002&purpose=for-sale&hitsPerPage=6`);
-  const propertyForRent = await fetchApi(`${baseUrl}/properties/list?locationExternalIDs=5002&purpose=for-rent&hitsPerPage=6`);
+  const propertyForSale = await fetchApi(
+    `${baseUrl}/properties/list?locationExternalIDs=5002&purpose=for-sale&hitsPerPage=6`
+  );
+  const propertyForRent = await fetchApi(
+    `${baseUrl}/properties/list?locationExternalIDs=5002&purpose=for-rent&hitsPerPage=6`
+  );
 
   return {
     props: {
