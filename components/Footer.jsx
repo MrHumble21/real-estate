@@ -8,7 +8,7 @@ const Footer = () => (
     borderTop="1px"
     borderColor="gray.100"
   >
-    © 2021 Realtor, Inc.
+    © 2022 MrHumble Real Estate, Inc.
   </Box>
 );
 
